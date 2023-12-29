@@ -1,0 +1,43 @@
+/* Add styles to match the theme of other pages */
+.upload-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+}
+
+.upload-form h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.upload-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Styles for artwork display */
+.artwork-item {
+  margin-bottom: 30px;
+}
+
+.artwork-image {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.artwork-image:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .artwork-item {
+    margin-bottom: 15px;
+  }
+}

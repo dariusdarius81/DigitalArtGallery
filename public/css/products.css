@@ -6,6 +6,31 @@ body {
     padding: 0;
 }
 
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+nav a {
+    color: #4285f4;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #3367d6;
+}
+
 .container {
     max-width: 90%;
     margin: auto;
@@ -127,7 +152,8 @@ body {
     background-color: #f8f9fa;
 }
 
-.btn-secondary, .btn-primary {
+.btn-secondary,
+.btn-primary {
     border-radius: 4px;
     padding: 8px 20px;
 }

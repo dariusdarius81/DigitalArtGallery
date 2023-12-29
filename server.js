@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const multer = require("multer");
 const { connectDB, getDb } = require("./mongoDB");
-const { ObjectId } = require("mongodb"); // Import ObjectId
+const { ObjectId } = require("mongodb");
 
 const app = express();
 const port = 3000;
@@ -33,41 +33,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const images = [
-  {
-    id: 1,
-    url: "/images/monalisa.jpg",
-    title: "MONA LISA",
-    author: "Leonardo da Vinci",
-    description:
-      "The 'Mona Lisa', also known as La Gioconda, is an iconic portrait created by the Italian master Leonardo da Vinci in the 16th century. It features a woman with an enigmatic smile, gazing at us from a mysterious background, with a subtle and intriguing expression that has captivated imaginations for centuries. It is considered one of the most valuable works of art in the world.",
-  },
-  {
-    id: 2,
-    url: "/images/pearlear.jpg",
-    title: "GIRL WITH A PEARL EARRING",
-    author: "Johannes Vermeer",
-    description:
-      "This remarkable painting by the Dutch artist Johannes Vermeer, known as the 'Girl with a Pearl Earring,' depicts a young woman in a captivating portrait. The play of light and shadows creates a mysterious interplay of colors and details, with the pearl earring in her ear drawing attention by gleaming in the darkness. This remarkable artwork exudes timeless mystery and elegance",
-  },
-  {
-    id: 3,
-    url: "/images/starry.jpg",
-    title: "THE STARRY NIGHT",
-    author: "Vincent van Gogh",
-    description:
-      "The 'Starry Night' is an iconic painting by the Dutch post-impressionist artist Vincent van Gogh. It depicts a swirling night sky filled with vibrant stars, a crescent moon, and a sleepy village below. The expressive brushwork and vivid colors create a sense of movement and emotion, making it one of van Gogh's most famous and beloved works of art.",
-  },
-  {
-    id: 4,
-    url: "/images/lastsupper.jpg",
-    title: "THE LAST SUPPER",
-    author: "Leonardo da Vinci",
-    description:
-      "The 'Last Supper' is a famous mural painting created by the Italian Renaissance artist Leonardo da Vinci in the 15th century. It depicts the scene from the Bible in which Jesus Christ shares his last meal with his disciples before his crucifixion. The painting is renowned for its masterful use of perspective and composition, as well as its emotional intensity.",
-  },
-];
-
 app.get("/api/images", async (req, res) => {
   try {
     const db = getDb();
@@ -86,9 +51,17 @@ app.get("/image/:id", async (req, res) => {
     const image = await db.collection("images").findOne({ _id: imageId });
 
     if (image) {
+      console.log("Session Logged In:", req.session.loggedin);
+      console.log("Session Username:", req.session.username);
+      console.log("Image Author:", image.author);
       const imageUrl = image.url.startsWith("/")
         ? image.url
         : "/uploads/" + image.url;
+
+      const deleteButtonHtml =
+        req.session.loggedin && req.session.username === image.author
+          ? `<button id="deleteButton" class="btn btn-danger" onclick="deleteImage('${image._id}')">Delete Image</button>`
+          : "";
 
       const responseHtml = `
               <!DOCTYPE html>
@@ -118,9 +91,25 @@ app.get("/image/:id", async (req, res) => {
         image.title
       }" class="img-fluid rounded">
 
-                          <p class="description mt-3">${image.description}</p>
-                      </div>
+      <p class="description mt-3">${image.description}</p>
+      ${deleteButtonHtml}                      </div>
                   </main>
+
+                  <script>
+                  function deleteImage(imageId) {
+                      if (confirm('Are you sure you want to delete this image?')) {
+                          fetch('/delete-image/' + imageId, { method: 'DELETE' })
+                          .then(response => {
+                              if (response.ok) {
+                                  window.location.href = '/'; // redirect to home after deletion
+                              } else {
+                                  alert('Error deleting image');
+                              }
+                          });
+                      }
+                  }
+                  </script>
+
                   <footer class="bg-light text-center text-lg-start">
                       <div class="text-center p-3">
                           &copy; ${new Date().getFullYear()} Digital Art Gallery. All rights reserved.
@@ -129,6 +118,8 @@ app.get("/image/:id", async (req, res) => {
               </body>
               </html>
           `;
+      //  Inspect the session state to ensure it correctly identifies the logged-in user.
+
       res.send(responseHtml);
     } else {
       res.status(404).send("Image not found.");
@@ -136,6 +127,34 @@ app.get("/image/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching image");
+  }
+});
+
+app.delete("/delete-image/:id", async (req, res) => {
+  if (!req.session.loggedin) {
+    return res.status(403).send("User not logged in");
+  }
+
+  try {
+    const db = getDb();
+    const imageId = new ObjectId(req.params.id);
+    const image = await db.collection("images").findOne({ _id: imageId });
+
+    if (!image) {
+      return res.status(404).send("Image not found");
+    }
+
+    if (image.author !== req.session.username) {
+      return res
+        .status(403)
+        .send("You are not authorized to delete this image");
+    }
+
+    await db.collection("images").deleteOne({ _id: imageId });
+    res.status(200).send("Image deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error deleting image");
   }
 });
 
@@ -188,11 +207,7 @@ app.get("/api/user-images", async (req, res) => {
 });
 
 app.get("/api/user-status", (req, res) => {
-  if (req.session.loggedin) {
-    res.json({ loggedin: true, username: req.session.username });
-  } else {
-    res.json({ loggedin: false });
-  }
+  res.json({ loggedin: req.session.loggedin, username: req.session.username });
 });
 
 app.get("/logout", function (req, res) {
@@ -215,7 +230,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     const db = getDb();
     const imgData = {
       title: req.body.title,
-      author: req.session.username, // Use the logged-in user's username
+      author: req.session.username, // The logged-in user is the author
       description: req.body.description,
       url: "/uploads/" + req.file.filename,
     };

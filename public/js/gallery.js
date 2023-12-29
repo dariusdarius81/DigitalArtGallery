@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         img.className = "img-fluid gallery-image";
         img.alt = `Image ${image.id}`;
         img.onclick = () => {
+          console.log("Clicked image with _id:", image._id); // Debugging line
           if (image._id) {
             window.location.href = `/image/${image._id}`;
           } else {

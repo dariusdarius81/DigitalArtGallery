@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Products - Digital Art Gallery</title>
-    <link rel="stylesheet" href="/css/main.css" />
+    <title>Products - Digital Art Gallery</title>
+    <!-- <link rel="stylesheet" href="/css/main.css" /> -->
     <link rel="stylesheet" href="/css/products.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -42,8 +42,8 @@
     </header>
 
     <main class="container mt-4">
-        <section class="text-center my-4">
-            <h2 class="page-title">Showcase Your Creative Work</h2>
+        <section class="jumbotron text-center my-4">
+            <h2 class="display-4">Showcase Your Creative Work</h2>
             <p class="lead">Explore and share unique artwork in our community.</p>
 
             <div class="d-flex justify-content-center">
@@ -73,7 +73,6 @@
                 <div class="modal-body">
                     <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload">
                         <input type="text" name="title" placeholder="Artwork Title" required>
-                        <input type="text" name="author" placeholder="Author Name" required>
                         <textarea name="description" placeholder="Description"></textarea>
                         <input type="file" name="image" accept="image/*" required>
                     </form>
