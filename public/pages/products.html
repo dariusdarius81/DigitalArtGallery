@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Products - Digital Art Gallery</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/products.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/js/userStatus.js"></script>
+</head>
+
+<body>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">Digital Art Gallery</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/about.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/gallery.html">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pages/products.html">Our Products</a>
+                        </li>
+                        <li id="userStatus" class="nav-item"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <section class="text-center my-4">
+            <h2 class="page-title">Showcase Your Creative Work</h2>
+            <p class="lead">Explore and share unique artwork in our community.</p>
+
+            <div class="d-flex justify-content-center">
+                <button id="uploadButton" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload
+                    Your Artwork</button>
+            </div>
+
+            <div id="loginPrompt" class="mt-3" style="display: none;">
+                <p class="text-center">Please <a href="login.html">log in</a> to upload your artwork.</p>
+            </div>
+        </section>
+
+        <div id="productGallery" class="row">
+        </div>
+    </main>
+
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Artwork</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload">
+                        <input type="text" name="title" placeholder="Artwork Title" required>
+                        <input type="text" name="author" placeholder="Author Name" required>
+                        <textarea name="description" placeholder="Description"></textarea>
+                        <input type="file" name="image" accept="image/*" required>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" form="uploadForm" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p>&copy; 2023 Digital Art Gallery. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/products.js"></script>
+</body>
+
+</html>

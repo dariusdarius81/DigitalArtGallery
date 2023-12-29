@@ -1,0 +1,93 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  color: #333;
+}
+
+.navbar {
+  background-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #cce5ff;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+
+.navbar-brand:hover {
+  color: #cce5ff;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: #cce5ff;
+  font-weight: bold;
+}
+
+.gallery-item {
+  margin-bottom: 30px;
+}
+
+.gallery-image {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.05);
+}
+
+.image-description,
+.image-author {
+  text-align: center;
+  color: #555;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery-image {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  padding: 20px;
+  text-align: center;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.image-container:hover .gallery-image {
+  transform: scale(1.03);
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .gallery-item {
+    margin-bottom: 15px;
+  }
+}
