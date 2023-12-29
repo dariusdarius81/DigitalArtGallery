@@ -25,7 +25,7 @@ function handleFormSubmit(event) {
   })
     .then((response) => {
       if (response.ok) {
-        loadProducts(); // Reload the products
+        loadProducts(); // reload the products
       } else {
         console.error("Error uploading image");
       }

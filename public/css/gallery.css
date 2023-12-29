@@ -114,7 +114,6 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  /* hidden by default */
   transition: opacity 0.3s ease;
 }
 

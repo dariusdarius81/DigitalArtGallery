@@ -127,7 +127,6 @@ nav a:hover {
     color: #666;
 }
 
-/* Form Styling */
 #uploadForm input[type="text"],
 #uploadForm textarea,
 #uploadForm input[type="file"] {
@@ -144,7 +143,6 @@ nav a:hover {
     resize: vertical;
 }
 
-/* Button Styling */
 .modal-footer {
     border-top: 1px solid #e9ecef;
     padding-top: 15px;
@@ -176,7 +174,6 @@ nav a:hover {
     background-color: #0056b3;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .modal-dialog {
         margin: 20px;

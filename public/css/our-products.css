@@ -1,5 +1,98 @@
-/* Add styles to match the theme of other pages */
-.upload-form {
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  color: #333;
+}
+
+header {
+  background-color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+nav a {
+  color: #4285f4;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #3367d6;
+}
+
+.modal-body {
+  padding: 20px;
+  color: #666;
+}
+
+#uploadForm input[type="text"],
+#uploadForm textarea,
+#uploadForm input[type="file"] {
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+
+#uploadForm textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #f8f9fa;
+}
+
+.btn-secondary,
+.btn-primary {
+  border-radius: 4px;
+  padding: 8px 20px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 20px;
+  }
+
+  .modal-content {
+    border-radius: 4px;
+  }
+}
+
+/* .upload-form {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -20,7 +113,6 @@
   gap: 10px;
 }
 
-/* Styles for artwork display */
 .artwork-item {
   margin-bottom: 30px;
 }
@@ -35,9 +127,8 @@
   transform: scale(1.05);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .artwork-item {
     margin-bottom: 15px;
   }
-}
+} */
